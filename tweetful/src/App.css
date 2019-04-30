@@ -1,0 +1,31 @@
+.Body {
+  text-align: center;
+  height: 98vh;
+}
+
+.App {
+  height: 93vh;
+  display: flex;
+  background-color: #0099ee;
+}
+
+.leftBar {
+  padding-top: 20px;
+  flex: 1;
+  border-left: 5px solid white;
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
+}
+
+.content{
+  flex: 3;
+  border: 5px solid white;
+}
+
+.rightBar {
+  padding-top: 20px;
+  flex: 1;
+  border-right: 5px solid white;
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
+}
