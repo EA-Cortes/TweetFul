@@ -4,7 +4,7 @@ import './styles/Footer.css';
  const Footer = () => {
     return(
         <div className="Footer">
-            Footer goes here
+            SerTweet is an open source application that allows users to search tweets and display them in an user friendly way.
         </div>
     )
 }

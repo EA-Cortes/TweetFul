@@ -1,6 +1,7 @@
 .Body {
   text-align: center;
   height: 98vh;
+  color: white
 }
 
 .App {
@@ -17,6 +18,15 @@
   border-bottom: 5px solid white;
 }
 
+.listStyle {
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
+  list-style: none;
+}
+.listStyle li{
+  padding: 5px;
+  text-align: left;
+}
 .content{
   flex: 3;
   border: 5px solid white;
