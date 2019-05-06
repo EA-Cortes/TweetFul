@@ -3,10 +3,10 @@ import './App.css';
 import Header from './components/layout/Header.js';
 import Footer from './components/layout/Footer.js';
 import SearchForm from './components/SearchForm.js';
-import SecretKey from './SecretKey.js';
+import API_Keys from './API_Keys.js';
 
 function App() {
-  const key2 = SecretKey.key1;
+  const key2 = API_Keys.consumerKey;
   return (
     window.alert(key2),
     <div className="Body">
