@@ -1,18 +1,15 @@
 import React from 'react';
-import './App.css';
+import './style/App.css';
 import Header from './components/layout/Header.js';
 import Footer from './components/layout/Footer.js';
 import SearchForm from './components/SearchForm.js';
-import API_Keys from './API_Keys.js';
-import * as passport from 'passport';
-import {Strategy, User} from 'passport-twitter';
+import TwitterAPI from './TwitterAPI';
 
 function App() {
-  
-    window.alert('yeeeet');
   return (
     <div className="Body">
       <Header/>
+      
         <div className="App">
           <div className="leftBar">
           <h1>SerTweet</h1>
@@ -29,7 +26,8 @@ function App() {
           </div>
 
           <div className="content">
-            <p>Yesrrrrr</p>
+          Content placeholder
+            <TwitterAPI/>
           </div>
 
           <div className="rightBar">
