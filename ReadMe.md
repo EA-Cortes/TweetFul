@@ -3,6 +3,8 @@
 A web app that allows users to search and display tweets in an aesthetically pleasing way.
 
 # Technologies used
+- Node.js, npm
+- Express
 - ReactJS
     - React Hooks
     - React Components
