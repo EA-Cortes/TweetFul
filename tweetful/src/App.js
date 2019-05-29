@@ -26,7 +26,7 @@ function App() {
           </div>
 
           <div className="content">
-          Content placeholder
+          
             <TwitterAPI/>
           </div>
 

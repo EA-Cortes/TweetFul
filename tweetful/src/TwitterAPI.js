@@ -18,6 +18,7 @@ class TwitterAPI extends Component{
     render(){
     return(
         <div className="container" >
+        <a style={loginButton} href="http://localhost:5000/auth/twitter">Sign in with Twitter</a>
             <h2>Customers</h2>
             <div>Coming from Twitter API </div> 
             <ul style ={style}>
@@ -31,5 +32,11 @@ class TwitterAPI extends Component{
 
 const style  = {
     listStyle: "none"
+}
+
+const loginButton = {
+    color: "white",
+    // border: "2px solid black",
+    padding: "10px"
 }
 export default TwitterAPI;
