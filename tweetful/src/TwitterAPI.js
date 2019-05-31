@@ -18,10 +18,10 @@ class TwitterAPI extends Component{
     render(){
     return(
         <div className="container" >
+        <h2>Login</h2>
         <a style={loginButton} href="http://localhost:5000/auth/twitter">Sign in with Twitter</a>
-            <h2>Customers</h2>
-            <div>Coming from Twitter API </div> 
-            <ul style ={style}>
+        <a style={loginButton} href="/createAccount"> Create Twitter account</a>
+            <ul style= {style}>
                 {this.state.customers.map(customer => 
                     <li key = {customer.id}>{customer.firstName} {customer.lastName} </li>
                 )}
@@ -30,7 +30,7 @@ class TwitterAPI extends Component{
     )};
 };
 
-const style  = {
+const style = {
     listStyle: "none"
 }
 

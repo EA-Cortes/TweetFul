@@ -25,24 +25,27 @@ passport.use(new Strategy({
     includeEmail: true
   },
    (token, tokenSecret, profile, cb) => {
-        // User.findOrCreate({twitterId: profile.id}, (err, user) =>{
-            // return cb(err, user);
-        // });
         console.log(profile);
-        return;
+        return cb(null, profile);
   }
 ));
 
+passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  });
 
 // Middleware
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
 app.get('/auth/twitter/callback', 
-  passport.authenticate('twitter', 
-    (req, res) =>{
-        // res.send('Reached callback URL');
-        console.log('yeet');
-    }));
+  passport.authenticate('twitter'), //{successRedirect: '/'}),//);
+  (req, res) => {
+      res.redirect('http://localhost:3000');
+  });
 
 
 
@@ -57,7 +60,30 @@ app.get('/api/customers', (req, res)=>{
     res.json(customers);
 });
 
-const PORT = process.env.PORT || 5000;
+app.get('/api/tweets', (req, res)=>{
+    const tweets = [
+        {
+            id: 1,
+            userName: "svperclvster",
+            tweet: "They always say yeehaw but they never ask hawyee",
+            date: "2019-03-22T18:25:43.511Z"
+        },
+        {
+            id: 2,
+            userName: "53npai",
+            tweet: "Need some sad horny content",
+            date: "2019-03-22T18:25:43.511Z"},
+        {
+            id: 3,
+            userName: "50cent",
+            tweet: "Man I can't believe my grandma is making me take out the trash wtf man I'm rich!",
+            date: "2019-03-22T18:25:43.511Z"
+        }
+    ];
+res.json(tweets);
+});
+
+const PORT = 5000; // process.env.PORT || 5000;
 app.listen(PORT, () => console.log('Server running on port: ' + PORT));
 
 module.exports = app;
