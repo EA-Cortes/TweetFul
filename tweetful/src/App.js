@@ -4,6 +4,7 @@ import Header from './components/layout/Header.js';
 import Footer from './components/layout/Footer.js';
 import SearchForm from './components/SearchForm.js';
 import TwitterAPI from './TwitterAPI';
+import TwitGrid from './components/tweets/TwitGrid.js';
 
 function App() {
   return (
@@ -26,12 +27,12 @@ function App() {
           </div>
 
           <div className="content">
-          
-            <TwitterAPI/>
+            <TwitGrid/>
           </div>
 
           <div className="rightBar">
-            Right Bar  
+            
+            <TwitterAPI/>
           </div>  
         </div>
         <Footer/>
