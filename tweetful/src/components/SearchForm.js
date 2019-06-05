@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const SearchForm = ()=>{
+const SearchForm = ()=> {
     const [keyword, setKeyword] = useState("");
     const [isOn, setIsOn] = useState(false);
     
