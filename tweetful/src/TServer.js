@@ -25,10 +25,10 @@ passport.use(new Strategy({
     includeEmail: true
   },
    (token, tokenSecret, profile, cb) => {
-        console.log(profile);
-        console.log("\Login attempt by: \n");
-        // console.log(screen_name);
-
+        // console.log(profile);
+        console.log("\Login attempt by:");
+        console.log(profile._json.name);
+        console.log(profile._json.screen_name);
         return cb(null, profile);
   }
 ));
