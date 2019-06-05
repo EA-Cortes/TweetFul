@@ -26,6 +26,9 @@ passport.use(new Strategy({
   },
    (token, tokenSecret, profile, cb) => {
         console.log(profile);
+        console.log("\Login attempt by: \n");
+        // console.log(screen_name);
+
         return cb(null, profile);
   }
 ));
@@ -44,6 +47,8 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', 
   passport.authenticate('twitter'), //{successRedirect: '/'}),//);
   (req, res) => {
+    //   res.json(tweets);
+    
       res.redirect('http://localhost:3000');
   });
 
@@ -76,8 +81,8 @@ app.get('/api/tweets', (req, res)=>{
         {
             id: 3,
             userName: "50cent",
-            tweet: "Man I can't believe my grandma is making me take out the trash wtf man I'm rich!",
-            date: "2019-03-22T18:25:43.511Z"
+            tweet: "I can't believe my grand mothers making me take out the garbage. I'm rich fuck this. I'm going home!",
+            date: "2010-09-26T14:56:43.511Z"
         }
     ];
 res.json(tweets);
