@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './style/App.css';
 import Header from './components/layout/Header.js';
 import Footer from './components/layout/Footer.js';
@@ -6,7 +6,8 @@ import SearchForm from './components/SearchForm.js';
 import TwitterAPI from './TwitterAPI';
 import TwitGrid from './components/tweets/TwitGrid.js';
 
-function App() {
+
+const App =() =>{
   return (
     <div className="Body">
       <Header/>
