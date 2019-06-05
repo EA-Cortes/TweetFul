@@ -40,7 +40,11 @@ const style = {
 }
 
 const tweetStyle = {
-    border: "1px solid #FFFFFF"
+    justifyContent: "center",
+    background: "white",
+    border: "1px solid #FFFFFF",
+    borderRadius: "16px",
+    color: "#0099ee"
 }
 
 export default Tweet;
