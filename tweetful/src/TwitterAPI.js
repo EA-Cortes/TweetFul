@@ -1,19 +1,22 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 
+// const [loggedIn, setLoggedIn] = useState(false);
+// const SearchForm = ()=> {
 class TwitterAPI extends Component{
-    constructor(){
-        super();
-        this.state = {
-            customers: []
-        }
-    }
+    // const [isOn, setIsOn] = useState(false);
+    // constructor(){
+    //     super();
+    //     this.state = {
+    //         customers: []
+    //     }
+    // }
 
-    componentDidMount(){
-        fetch('/api/customers')
-            .then(res => res.json())
-            .then(customers => this.setState({customers},
-                () => console.log('Customers fetched..', customers)));
-    }
+    // componentDidMount(){
+    //     fetch('/api/customers')
+    //         .then(res => res.json())
+    //         .then(customers => this.setState({customers},
+    //             () => console.log('Customers fetched..', customers)));
+    // }
 
     render(){
     return(
@@ -21,11 +24,11 @@ class TwitterAPI extends Component{
         <h2>Login</h2>
         <a style={loginButton} href="http://localhost:5000/auth/twitter">Sign in with Twitter</a>
         <a style={loginButton} href="/createAccount"> Create Twitter account</a>
-            <ul style= {style}>
+            {/* <ul style= {style}>
                 {this.state.customers.map(customer => 
                     <li key = {customer.id}>{customer.firstName} {customer.lastName} </li>
                 )}
-            </ul>
+            </ul> */}
         </div>   
     )};
 };
