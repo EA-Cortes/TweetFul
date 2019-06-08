@@ -7,6 +7,8 @@ const Strategy = require('passport-twitter').Strategy;
 const session = require('express-session');
 const app = express();
 
+const currentUser = {name : "", screen_name: ""};
+
 app.use(passport.initialize());
 // app.use(passport.session());
 
@@ -26,8 +28,11 @@ passport.use(new Strategy({
   },
    (token, tokenSecret, profile, cb) => {
         // console.log(profile);
+        
+        currentUser.name = profile._json.name;
+        currentUser.screen_name = profile._json.screen_name;
+        
         console.log("\Login attempt by:");
-        console.log(profile._json.name);
         console.log(profile._json.screen_name);
         return cb(null, profile);
   }
@@ -53,9 +58,27 @@ app.get('/auth/twitter/callback',
   });
 
 
+app.get('/signInStatus', 
+  // app.get('https://api.twitter.com/1.1/account/settings.json',
+    (req, res) => {
+      res.json("req");
+    }
+  // )        
+);
+  
+  
 
+app.get('/loggedUser', (req, res) => {
+  if(currentUser.name != ''){
+    console.log("logged in as: ");
+  console.log(currentUser);
+  }
+  res.json(currentUser);
+  
+  
+});
 
-app.get('/api/customers', (req, res)=>{
+app.get('/api/customers', (req, res) => {
     const customers = [
         {id: 1, firstName: 'John', lastName: 'Doe'},
         {id: 2, firstName: 'Mary', lastName: 'Jane'},
@@ -65,12 +88,12 @@ app.get('/api/customers', (req, res)=>{
     res.json(customers);
 });
 
-app.get('/api/tweets', (req, res)=>{
+app.get('/api/tweets', (req, res) => {
     const tweets = [
         {
             id: 1,
             userName: "svperclvster",
-            tweet: "They always say yeehaw but they never ask hawyee",
+            tweet: "They always say yeehaw but they never ask haw yee",
             date: "2019-03-22T18:25:43.511Z"
         },
         {
