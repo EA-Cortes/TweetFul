@@ -10,7 +10,7 @@ class Tweet extends Component{
         fetch('/api/tweets')
             .then(res => res.json())
             .then(tweets => this.setState({tweets},
-                () => console.log('Tweets fetched..', tweets)));
+                ));
     }
     render(){
         return(
@@ -44,7 +44,8 @@ const tweetStyle = {
     background: "white",
     border: "1px solid #FFFFFF",
     borderRadius: "16px",
-    color: "#0099ee"
+    color: "#555566",
+    margin: "5px"
 }
 
 export default Tweet;
