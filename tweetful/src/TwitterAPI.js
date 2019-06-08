@@ -39,7 +39,7 @@ const TwitterAPI = (props)=> {
         :
         <div className="container" >
             <h2>Login</h2>
-            <a style={loginButton} href="http://localhost:5000/auth/twitter" onClick={e =>setLoggedIn(true)}>Sign in with Twitter</a>
+            <a style={loginButton} href="http://localhost:5000/auth/twitter">Sign in with Twitter </a>
             {/* <a style={loginButton} href="/createAccount"> Create Twitter account</a> */}
         </div>   
     )
