@@ -1,12 +1,32 @@
+// Server reqs
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
+// require('dotenv').config();
+// API Key holder
 const API_Keys = require('./API_Keys');
 const path = require('path');
+
+// oAuth 2.0 
 const passport = require('passport');
 const Strategy = require('passport-twitter').Strategy;
-const session = require('express-session');
+
+// Twitter search API
+// https://github.com/ttezel/twit
+const Twit = require('twit');
+
+
+// Init Server
 const app = express();
 
+const T = new Twit({
+  consumer_key: API_Keys.consumerKey,
+  consumer_secret: API_Keys.consumerSecret,
+  access_token: API_Keys.access_token,
+  access_token_secret: API_Keys.access_token_secret
+})
+
+// Store username server side for display 😎
 const currentUser = {name : "", screen_name: ""};
 
 app.use(passport.initialize());
@@ -27,13 +47,9 @@ passport.use(new Strategy({
     includeEmail: true
   },
    (token, tokenSecret, profile, cb) => {
-        // console.log(profile);
-        
+        // Store current user info in server
         currentUser.name = profile._json.name;
         currentUser.screen_name = profile._json.screen_name;
-        
-        console.log("\Login attempt by:");
-        console.log(profile._json.screen_name);
         return cb(null, profile);
   }
 ));
@@ -52,30 +68,13 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', 
   passport.authenticate('twitter'), //{successRedirect: '/'}),//);
   (req, res) => {
-    //   res.json(tweets);
-    
       res.redirect('http://localhost:3000');
   });
 
 
-app.get('/signInStatus', 
-  // app.get('https://api.twitter.com/1.1/account/settings.json',
-    (req, res) => {
-      res.json("req");
-    }
-  // )        
-);
-  
-  
-
+// Middleware to get logged in user
 app.get('/loggedUser', (req, res) => {
-  if(currentUser.name != ''){
-    console.log("logged in as: ");
-  console.log(currentUser);
-  }
   res.json(currentUser);
-  
-  
 });
 
 app.get('/api/customers', (req, res) => {
@@ -86,6 +85,13 @@ app.get('/api/customers', (req, res) => {
         {id: 4, firstName: 'Mark', lastName: 'Johns'}
     ];
     res.json(customers);
+});
+
+app.get('/searchTweets', 
+(res, req) =>{
+  req.originalUrl = 'https://api.twitter.com/1.1/search/tweets.json?q=twitterdev%20new%20premium';
+  // console.log(res);
+  // res.json();
 });
 
 app.get('/api/tweets', (req, res) => {
@@ -110,6 +116,19 @@ app.get('/api/tweets', (req, res) => {
     ];
 res.json(tweets);
 });
+
+T.get('search/tweets', { q: 'banana since:2011-07-11', count: 2 }, 
+  (err, data, response) => {
+// Metatdata
+  // console.log(data)
+  // console.log(data.statuses[0])
+
+// Tweet + user info
+    // console.log("Tweet:")
+    console.log(data.statuses[0].text)
+    console.log("@" + data.statuses[0].user.screen_name)
+  }
+)
 
 const PORT = 5000; // process.env.PORT || 5000;
 app.listen(PORT, () => console.log('Server running on port: ' + PORT));
