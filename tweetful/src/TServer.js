@@ -117,16 +117,21 @@ app.get('/api/tweets', (req, res) => {
 res.json(tweets);
 });
 
-T.get('search/tweets', { q: 'banana since:2011-07-11', count: 2 }, 
+T.get('search/tweets', { q: 'apples since:2011-07-11', count: 10 }, 
   (err, data, response) => {
-// Metatdata
-  // console.log(data)
-  // console.log(data.statuses[0])
-
-// Tweet + user info
-    // console.log("Tweet:")
-    console.log(data.statuses[0].text)
-    console.log("@" + data.statuses[0].user.screen_name)
+// Useful data from array object
+    // console.log(data.statuses)
+    // id_str
+    // name
+    // screen_name
+  
+    data.statuses.forEach(
+      (element, index)=>{
+      console.log("\nTweet " + index + ":")
+      console.log(element.text)
+      console.log("@" + element.user.screen_name)
+      }
+    )
   }
 )
 
