@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { get } from 'http';
 // import { createSecureContext } from 'tls';
 
 
@@ -14,7 +15,6 @@ const TwitterAPI = (props)=> {
     
     // useEffect Hook replaces component did mount
     useEffect(() =>{
-        // const newLocal = "";
         fetch('/loggedUser')
          .then(res => res.json())
           .then(currentUser =>{
@@ -26,6 +26,10 @@ const TwitterAPI = (props)=> {
                 document.getElementById('twitterAt').innerHTML = "@" + currentUser.screen_name;
               } 
           });          
+        //   fetch('/searchTweets')
+        //    .then(res => res.json())
+        //     .then(console.log(res));
+        get('/searchTweets');
     });
 
     return(
@@ -43,7 +47,6 @@ const TwitterAPI = (props)=> {
             {/* <a style={loginButton} href="/createAccount"> Create Twitter account</a> */}
         </div>   
     )
-        
   // End of TwitterAPI
 }
 
