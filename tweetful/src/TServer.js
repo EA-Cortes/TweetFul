@@ -117,22 +117,46 @@ app.get('/api/tweets', (req, res) => {
 res.json(tweets);
 });
 
-T.get('search/tweets', { q: 'apples since:2011-07-11', count: 10 }, 
-  (err, data, response) => {
-// Useful data from array object
-    // console.log(data.statuses)
-    // id_str
-    // name
-    // screen_name
-  
-    data.statuses.forEach(
-      (element, index)=>{
-      console.log("\nTweet " + index + ":")
-      console.log(element.text)
-      console.log("@" + element.user.screen_name)
+T.get('search/tweets', { q: 'wine since:2011-07-11', count: 10 }, 
+(err, data) => {
+// To get tweet metadata
+// console.log(data.statuses)
+    
+  // Init Tweet array
+  const tweets = [];
+
+  data.statuses.forEach(
+    (element, index)=>{
+      // Temp save each tweet  
+      const tweet = {
+        name: element.user.name,
+        screen_name: element.user.screen_name,
+        tweet: element.text,
+        id_str: element.id_str
       }
-    )
+
+      // Add tweet to array
+      tweets.push(tweet);
+    }      
+  )
+
+// output tweets as JSON array
+  console.log(tweets);
+  console.log(tweets.length);
+
+  // Convert tweet array to JSON array
+  const ret = JSON.stringify(tweets);
+  
+  // Return tweet JSON object
+  (req, res) => {
+    res.json(ret)
   }
+  
+
+// console.log(ret);
+      // res.json(tweets);
+  },
+
 )
 
 const PORT = 5000; // process.env.PORT || 5000;
