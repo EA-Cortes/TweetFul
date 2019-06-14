@@ -1,9 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 
 const SearchForm = ()=> {
     const [keyword, setKeyword] = useState("");
     const [isOn, setIsOn] = useState(false);
-    
+    // useEffect(() => { 
+        // axios.post(`/sendFormData`, {"name": "pete"})
+        // .then(res => {
+        //   console.log(res);
+        //   console.log(res.data);
+        // })
+    // });
+
     return(
         isOn?
         <div>
@@ -16,24 +24,31 @@ const SearchForm = ()=> {
                 <input value={keyword}
                 onChange={e => setKeyword(e.target.value)} 
                 placeholder="Type a hashtag"
-                type="text"name="isOn" 
-                required>
+                type="text"name="isOn">
                 </input>
                 
-                <button type="submit" onClick={e =>foo()}>Submit</button>
+                <button type="submit" onClick={e =>foo()} onClick={e =>sendData({keyword})}>Submit</button>
             </form>                        
         </div>    
+        
     )
+
+    
     function foo(){
         // Reset keyword hook if there's already one
         if(isOn){
             setKeyword("");
         }
-        setIsOn(!isOn);
+        setIsOn(true);
+    }
+
+    function sendData(searchFor){
+        axios.post(`/sendFormData`, {keyword})
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        })
     }
 }
-
-
-
 
 export default SearchForm;

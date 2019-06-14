@@ -1,38 +1,30 @@
 import React, {useState, useEffect} from 'react';
-import { get } from 'http';
 // import { createSecureContext } from 'tls';
 
 
 // const SearchForm = ()=> {
 const TwitterAPI = (props)=> {
     const [loggedIn, setLoggedIn] = useState(false);
-    // componentDidMount(){
-    //     fetch('/api/customers')
-    //         .then(res => res.json())
-    //         .then(customers => this.setState({customers},
-    //             () => console.log('Customers fetched..', customers)));
-    // }
     
-    // useEffect Hook replaces component did mount
-    useEffect(() =>{
+    // useEffect Hook replaces component did mount\
+    useEffect(() => {
+      if(!loggedIn){
         fetch('/loggedUser')
-         .then(res => res.json())
-          .then(currentUser =>{
-              
+          .then(res => res.text())
+          .then(currentUser => {     
+            currentUser = JSON.parse(currentUser)
             // Output logged in user to screen
-              if(currentUser.name !== ""){
-                setLoggedIn(true);
-                document.getElementById('userName').innerHTML = currentUser.name;
-                document.getElementById('twitterAt').innerHTML = "@" + currentUser.screen_name;
-              } 
-          });          
-        //   fetch('/searchTweets')
-        //    .then(res => res.json())
-        //     .then(console.log(res));
-        get('/searchTweets');
-    });
+            if(currentUser.name !== ""){
+              setLoggedIn(true);
+              document.getElementById('userName').innerHTML = currentUser.name;
+              document.getElementById('twitterAt').innerHTML = "@" + currentUser.screen_name;
+            } 
+          });  
+        } 
+     });
 
     return(
+        console.log(loggedIn),
         loggedIn?
         <div className="container">
             <div>Logged in as:  
