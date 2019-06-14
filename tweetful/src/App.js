@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './style/App.css';
 import Header from './components/layout/Header.js';
 import Footer from './components/layout/Footer.js';
 import SearchForm from './components/SearchForm.js';
 import TwitterAPI from './TwitterAPI';
-import TwitGrid from './components/tweets/TwitGrid.js';
-
+import Tweet from './components/tweets/Tweet';
 
 const App =() =>{
   return (
@@ -16,7 +15,7 @@ const App =() =>{
           <div className="leftBar">
           <h1>SerTweet</h1>
             <p> Ready to view your tweets in a new way? </p>
-            <h2>Goals</h2>
+            <h2>Goals </h2>
             <ul className="listStyle">
               <li>User Friendly application</li>
               <li>Let you search tweets by hashtag/username</li>
@@ -28,7 +27,7 @@ const App =() =>{
           </div>
 
           <div className="content">
-            <TwitGrid/>
+            <Tweet/>
           </div>
 
           <div className="rightBar">

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 class Tweet extends Component{
     constructor(){
         super();
@@ -6,11 +6,18 @@ class Tweet extends Component{
             tweets: []
         }
     }
+
+   
     componentDidMount(){
-        fetch('/api/tweets')
+        // setInterval(() => {
+            // get('/search/tweets');
+            
+            fetch('/api/tweets')
             .then(res => res.json())
             .then(tweets => this.setState({tweets},
-                ));
+                ));    
+        // }, 1000);
+        
     }
     render(){
         return(
@@ -18,10 +25,11 @@ class Tweet extends Component{
                 <h2>Searched tweets</h2> 
                 <ul style={style}>
                 {this.state.tweets.map(tweet => 
-                    <li key = {tweet.id}>
+                    <li key = {tweet.key}>
                         <div style = {tweetStyle}>
                             <div>
-                                @{tweet.userName}: {tweet.tweet}
+                                {tweet.name}: @{tweet.screen_name} <br/>
+                                {tweet.tweet}
                             </div>
                             <div>
                                 {tweet.date}
