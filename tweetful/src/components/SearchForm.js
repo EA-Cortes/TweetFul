@@ -45,8 +45,9 @@ const SearchForm = ()=> {
     function sendData(searchFor){
         axios.post(`/sendFormData`, {keyword})
         .then(res => {
-          console.log(res);
-          console.log(res.data);
+          console.log("response in server");
+        //   console.log(res);
+        //   console.log(res.data);
         })
     }
 }

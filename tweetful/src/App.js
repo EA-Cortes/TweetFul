@@ -8,10 +8,12 @@ import Tweet from './components/tweets/Tweet';
 
 const App =() =>{
   return (
+    <div>
     <div className="Body">
       <Header/>
       
         <div className="App">
+         
           <div className="leftBar">
           <h1>SerTweet</h1>
             <p> Ready to view your tweets in a new way? </p>
@@ -35,7 +37,9 @@ const App =() =>{
             <TwitterAPI/>
           </div>  
         </div>
-        <Footer/>
+        <Footer/>    
+    </div>
+    
     </div>
   );
 }

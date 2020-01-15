@@ -7,6 +7,7 @@ const TwitterAPI = (props)=> {
     const [loggedIn, setLoggedIn] = useState(false);
     
     // useEffect Hook replaces component did mount\
+    /*
     useEffect(() => {
       if(!loggedIn){
         fetch('/loggedUser')
@@ -22,7 +23,7 @@ const TwitterAPI = (props)=> {
           });  
         } 
      });
-
+     */
     return(
         console.log(loggedIn),
         loggedIn?

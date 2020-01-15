@@ -1,11 +1,11 @@
 .Body {
   text-align: center;
   height: 98vh;
-  color: white
+  color: white;
+  background-color: #0099ee;
 }
 
 .App {
-  height: 93vh;
   display: flex;
   background-color: #0099ee;
 }
@@ -30,6 +30,7 @@
 .content{
   flex: 3;
   border: 5px solid white;
+  background-color: #0099ee;
 }
 
 .rightBar {
