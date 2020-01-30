@@ -265,80 +265,73 @@ app.post('/sendFormData', function(req, res){
       console.log("3 hours deep, pausing search");
         clearInterval(thread);
     }else{
-      tweets = [];
-
+      
+      var tweets2 = [];
       T.get('search/tweets', searchPam, 
       (err, data) => {
-        // To get tweet metadata
-        // console.log(data.st)
+        
         data.statuses.forEach(
           (element, index)=>{
-          // Temp save each tweet  
-          toInsert = false;
-          
-          var tweet = {
-            name: element.user.name,
-            screen_name: element.user.screen_name,
-            tweet: element.text,
-            tweet_id: element.id_str,
-            ts: new Date(element.created_at),
-            profilePicLink: element.user.profile_image_url_https,
-            flagRT: false,      
-          }
-          // Filter RT's
-          if(element.retweeted_status != null){
-            tweet.flagRT = true;
-            tweet.tweet_id = element.retweeted_status.id_str;
-            tweet.profilePicLink = element.retweeted_status.user.profile_image_url_https;
-            tweet.name = element.retweeted_status.user.name;
-            tweet.screen_name = element.retweeted_status.user.screen_name;
-            tweet.tweet = element.retweeted_status.text;
             
-          }
+            toInsert = false;
+            
+            var tweet = {
+              name: element.user.name,
+              screen_name: element.user.screen_name,
+              tweet: element.text,
+              tweet_id: element.id_str,
+              ts: new Date(element.created_at),
+              profilePicLink: element.user.profile_image_url_https,
+              flagRT: false,      
+            }
+            // Filter RT's
+            if(element.retweeted_status != null){
+              tweet.flagRT = true;
+              tweet.tweet_id = element.retweeted_status.id_str;
+              tweet.profilePicLink = element.retweeted_status.user.profile_image_url_https;
+              tweet.name = element.retweeted_status.user.name;
+              tweet.screen_name = element.retweeted_status.user.screen_name;
+              tweet.tweet = element.retweeted_status.text;
+              
+            }
 
-          if(element.entities.media != null){
-            tweet.mediaLink = element.entities.media[0].media_url_https;
-            }        
-            // check for duplicates
+            if(element.entities.media != null){
+              tweet.mediaLink = element.entities.media[0].media_url_https;
+              }        
+              // check for duplicates
 
-          MongoClient.connect(url,
-            {useUnifiedTopology: true},
-
-            (err, db) => {
-              var dbo = db.db("tweets");
+            MongoClient.connect(url, {useUnifiedTopology: true},
+              (err, db) => {
+                var dbo = db.db("tweets");
+ 
                 dbo.collection(conQ).findOne({"tweet_id": tweet.tweet_id},
                   (err, doc) => {
-                    if(err) throw err;                    
-                      if(doc == null){
-                        toInsert = true;  
-                        console.log(toInsert);              
-                      }
+                      if(err) throw err;                    
+                        if(doc == null){
+                          toInsert = true;                                    
+                        }
                     }
-                  );
-                db.close();
-              }
-            );
-            
-            if(toInsert){
-              tweets.push(tweet);
-            }
+                  );                     
+                  if(toInsert){
+                    // console.log(tweet);
+                    // tweets2.push(tweet);
+                  }                  
+                  
+                  tweets = tweets2;
+                   
+                  db.close();                                  
+                }
+              );    
+                     
+            }                  
+          );  
+           
+        }        
+      );
+      console.log(tweets);
         
-        // tweets.push(tweet);
-        }      
-       
-
-       
-      //  console.log(tweets.length);
-
-       
-    );
-
-    
-    
-    
-
     if(tweets === undefined || tweets.length < 1 ){
-      console.log("array empty, skipping pass\n");
+      console.log("[] skipping pass\n");
     }else{  
       MongoClient.connect(url, {
         useUnifiedTopology: true,
@@ -360,8 +353,7 @@ app.post('/sendFormData', function(req, res){
       }
       
 
-    }
-  );
+  
     //  console.log(tweets.length);
         // EoF
         
