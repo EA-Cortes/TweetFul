@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const mongoSanitize =  require('express-mongo-sanitize');
+const assert = require('assert');
 // require('dotenv').config();
 // API Key holder
 const API_Keys = require('./API_Keys');
@@ -37,7 +38,6 @@ MongoClient.connect(url, {
 },
   (err, db) => {
     if (err) throw err
-    else console.log("Connected to DB!");
     // db.getCollectionInfos();
     // );
     /*
@@ -67,7 +67,6 @@ MongoClient.connect(url, {
       });
 */
     db.close();
-    console.log("Closing DB connection");
 
     // Show all tweets
     /*
@@ -149,6 +148,7 @@ app.get('/loggedUser', (req, res) => {
 });
 
 // Init Tweet array  
+displayTweets = [];
 var tweets = [];
 var searchPam = { q: 'mango since:2011-07-11', count: 20 }
 
@@ -164,7 +164,7 @@ T.get('search/tweets', searchPam,
         name: element.user.name,
         screen_name: element.user.screen_name,
         tweet: element.text,
-        key: element.id_str
+        tweet_id: element.id_str
       }
       // console.log(element);
     // Add tweet to array
@@ -177,6 +177,9 @@ T.get('search/tweets', searchPam,
   )
 
 });
+
+// ***********************************  User made searches  ************************************ // 
+
 
 app.post('/sendFormData', function(req, res){
   // Pulling search keyword from user
@@ -191,152 +194,181 @@ app.post('/sendFormData', function(req, res){
   // ********************************************** // 
   console.log("Refreshing tweets. Time elapsed: " + timeElapsed + "\ts");
   tweets = [];
+  var toInsert = false;
   T.get('search/tweets', searchPam, 
     (err, data) => {
       // To get tweet metadata
       // console.log(data.st)
       data.statuses.forEach(
         (element, index)=>{
+        toInsert = false;
         // Temp save each tweet  
         var tweet = {
           name: element.user.name,
           screen_name: element.user.screen_name,
           tweet: element.text,
-          key: element.id_str,
+          tweet_id: element.id_str,
           ts: new Date(element.created_at),
           profilePicLink: element.user.profile_image_url_https,
           flagRT: false,
-          textStyle: {color: "black"}
           
         }
         // Filter RT's
         if(element.retweeted_status != null){
+          tweet.tweet_id = element.retweeted_status.id_str;
           tweet.flagRT = true;
           tweet.profilePicLink = element.retweeted_status.user.profile_image_url_https;
           tweet.name = element.retweeted_status.user.name;
           tweet.screen_name = element.retweeted_status.user.screen_name;
           tweet.tweet = element.retweeted_status.text;
-          tweet.textStyle = {color: "black"};
         }
 
         if(element.entities.media != null){
           tweet.mediaLink = element.entities.media[0].media_url_https;
         }
           // Add tweet to array
-          console.log(element);
+          // console.log(element);
           
-          tweets.push(tweet);
-          }      
-       )
-    // ----------------------- Send tweets to DB -----------------------  
-    MongoClient.connect(url, {
-      useUnifiedTopology: true,
-      },
-      (err, db) => {
-        if (err) throw err
-        else console.log("Sending tweets to DB!");
-        var dbo = db.db("tweets");
-        
-        dbo.collection(conQ).insertOne({
-          lowQ: conQ,
-          sQ: orQ
-        });
-        
-        dbo.collection(conQ).insertMany(tweets, 
-          
-          (err, result) => {
-            if(err) throw err;
-            // console.log("error in first pass");
-            db.close();
+          // Find if tweet already exists in DB
+          MongoClient.connect(url, 
+            {useUnifiedTopology: true},
+              (err, db) => {
+                if (err) throw err
+                var dbo = db.db("tweets");
+                dbo.collection(conQ).findOne({"tweet_id": tweet.tweet_id},
+                  (err, doc) => {
+                    if(err) throw err;
+                    if(doc == null){
+                      toInsert = true;
+                    }
+                  });
+                  if(toInsert){
+                    dbo.collection(conQ).insertOne(tweet, 
+                      (err, result) =>{
+                        if(err) throw err;
+                      });
+                  }
+              db.close();
           });
-    
-        // EoF
-        });
-        
+          }      
+       ) 
     });
+    
     // -----------------------      EoF         -----------------------  
 
   
   var thread = setInterval(() => {
-    timeElapsed = timeElapsed + 15;
+    timeElapsed = timeElapsed + 15; 
     // console.log("\nSearching for: " + JSON.stringify(searchPam));
-    console.log("Refreshing tweets. Time elapsed: " + timeElapsed + "\ts");
+    // console.log("Refreshing tweets. Time elapsed: " + timeElapsed + "\ts");
     if(timeElapsed > 10800){
       console.log("3 hours deep, pausing search");
         clearInterval(thread);
     }else{
       tweets = [];
-  T.get('search/tweets', searchPam, 
-  (err, data) => {
-    // To get tweet metadata
-    // console.log(data.st)
-    data.statuses.forEach(
-      (element, index)=>{
-      // Temp save each tweet  
-      var tweet = {
-        name: element.user.name,
-        screen_name: element.user.screen_name,
-        tweet: element.text,
-        key: element.id_str,
-        ts: new Date(element.created_at),
-        profilePicLink: element.user.profile_image_url_https,
-        flagRT: false,
-        textStyle: {color: "black"}
 
-      }
-      // Filter RT's
-      if(element.retweeted_status != null){
-        tweet.flagRT = true;
-        tweet.profilePicLink = element.retweeted_status.user.profile_image_url_https;
-        tweet.name = element.retweeted_status.user.name;
-        tweet.screen_name = element.retweeted_status.user.screen_name;
-        tweet.tweet = element.retweeted_status.text;
-        tweet.textStyle = {color: "black"};
-      }
+      T.get('search/tweets', searchPam, 
+      (err, data) => {
+        // To get tweet metadata
+        // console.log(data.st)
+        data.statuses.forEach(
+          (element, index)=>{
+          // Temp save each tweet  
+          toInsert = false;
+          
+          var tweet = {
+            name: element.user.name,
+            screen_name: element.user.screen_name,
+            tweet: element.text,
+            tweet_id: element.id_str,
+            ts: new Date(element.created_at),
+            profilePicLink: element.user.profile_image_url_https,
+            flagRT: false,      
+          }
+          // Filter RT's
+          if(element.retweeted_status != null){
+            tweet.flagRT = true;
+            tweet.tweet_id = element.retweeted_status.id_str;
+            tweet.profilePicLink = element.retweeted_status.user.profile_image_url_https;
+            tweet.name = element.retweeted_status.user.name;
+            tweet.screen_name = element.retweeted_status.user.screen_name;
+            tweet.tweet = element.retweeted_status.text;
+            
+          }
 
-      if(element.entities.media != null){
-        tweet.mediaLink = element.entities.media[0].media_url_https;
-      }
-        // Add tweet to array
-        console.log(element);
+          if(element.entities.media != null){
+            tweet.mediaLink = element.entities.media[0].media_url_https;
+            }        
+            // check for duplicates
+
+          MongoClient.connect(url,
+            {useUnifiedTopology: true},
+
+            (err, db) => {
+              var dbo = db.db("tweets");
+                dbo.collection(conQ).findOne({"tweet_id": tweet.tweet_id},
+                  (err, doc) => {
+                    if(err) throw err;                    
+                      if(doc == null){
+                        toInsert = true;  
+                        console.log(toInsert);              
+                      }
+                    }
+                  );
+                db.close();
+              }
+            );
+            
+            if(toInsert){
+              tweets.push(tweet);
+            }
         
-        tweets.push(tweet);
-          }      
-       )
+        // tweets.push(tweet);
+        }      
+       
+
+       
       //  console.log(tweets.length);
 
-       if(tweets === undefined || tweets.length < 1 ){
-        console.log("array empty, skipping pass");
-      }else{  
-        MongoClient.connect(url, {
-          useUnifiedTopology: true,
-          },
-          (err, db) => {
-            if (err) throw err
-            else console.log("Sending tweets to DB!");
-            var dbo = db.db("tweets");
-  
-            // Show all tweets
-            dbo.collection(conQ).insertMany(tweets, 
-              
-              (err, result) => {
-                if(err) throw err;
-                // console.log("error in repetition");
-                db.close();
-              });
-            });
-        }
-        
+       
+    );
 
-    });
     
+    
+    
+
+    if(tweets === undefined || tweets.length < 1 ){
+      console.log("array empty, skipping pass\n");
+    }else{  
+      MongoClient.connect(url, {
+        useUnifiedTopology: true,
+        },
+        (err, db) => {
+          if (err) throw err
+          else console.log("Sending tweets to DB!");
+          var dbo = db.db("tweets");
+
+          // Show all tweets
+          dbo.collection(conQ).insertMany(tweets, 
+            
+            (err, result) => {
+              if(err) throw err;
+              // console.log("error in repetition");
+              db.close();
+            });
+          });
+      }
+      
+
+    }
+  );
     //  console.log(tweets.length);
         // EoF
         
 
 
     }      
-  }, 20000);
+  },6000);
   
 // ********************************************** // 
   // end of response
