@@ -380,7 +380,21 @@ app.post('/sendFormData', function(req, res){
 // Middleware that returns tweets array
 app.get('/api/tweets', 
   (req, res) => {
-  res.json(tweets);
+    
+    MongoClient.connect(url, {useUnifiedTopology: true},
+      (err, db) => {
+        if(err) throw err;
+          var dbo = db.db("tweets");
+          dbo.collection("bassnectar").find({}).toArray(
+            (err, result) =>{
+              if(err) throw err;
+              res.json(result); 
+            });
+
+        }
+      );
+
+  // res.json(tweets);
 });
 
 const PORT = 5000; // process.env.PORT || 5000;
