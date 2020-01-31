@@ -198,61 +198,67 @@ app.post('/sendFormData', function(req, res){
   T.get('search/tweets', searchPam, 
     (err, data) => {
       // To get tweet metadata
-      // console.log(data.st)
       data.statuses.forEach(
         (element, index)=>{
-        toInsert = false;
-        // Temp save each tweet  
-        var tweet = {
-          name: element.user.name,
-          screen_name: element.user.screen_name,
-          tweet: element.text,
-          tweet_id: element.id_str,
-          ts: new Date(element.created_at),
-          profilePicLink: element.user.profile_image_url_https,
-          flagRT: false,
-          
-        }
-        // Filter RT's
-        if(element.retweeted_status != null){
-          tweet.tweet_id = element.retweeted_status.id_str;
-          tweet.flagRT = true;
-          tweet.profilePicLink = element.retweeted_status.user.profile_image_url_https;
-          tweet.name = element.retweeted_status.user.name;
-          tweet.screen_name = element.retweeted_status.user.screen_name;
-          tweet.tweet = element.retweeted_status.text;
-        }
+          toInsert = false;
+          // Temp save each tweet  
+          var tweet = {
+            name: element.user.name,
+            screen_name: element.user.screen_name,
+            tweet: element.text,
+            tweet_id: element.id_str,
+            ts: new Date(element.created_at),
+            profilePicLink: element.user.profile_image_url_https,
+            flagRT: false,
+            
+          }
+          // Filter RT's
+          if(element.retweeted_status != null){
+            tweet.tweet_id = element.retweeted_status.id_str;
+            tweet.flagRT = true;
+            tweet.profilePicLink = element.retweeted_status.user.profile_image_url_https;
+            tweet.name = element.retweeted_status.user.name;
+            tweet.screen_name = element.retweeted_status.user.screen_name;
+            tweet.tweet = element.retweeted_status.text;
+          }
 
-        if(element.entities.media != null){
-          tweet.mediaLink = element.entities.media[0].media_url_https;
-        }
+          if(element.entities.media != null){
+            tweet.mediaLink = element.entities.media[0].media_url_https;
+          }
           // Add tweet to array
           // console.log(element);
           
           // Find if tweet already exists in DB
-          MongoClient.connect(url, 
-            {useUnifiedTopology: true},
-              (err, db) => {
-                if (err) throw err
-                var dbo = db.db("tweets");
-                dbo.collection(conQ).findOne({"tweet_id": tweet.tweet_id},
-                  (err, doc) => {
-                    if(err) throw err;
-                    if(doc == null){
-                      toInsert = true;
+          MongoClient.connect(url, {useUnifiedTopology: true},           
+            (err, db) => {
+              
+              if (err) throw err;
+              var dbo = db.db("tweets");
+              dbo.collection(conQ).findOne({"tweet_id": tweet.tweet_id},
+                (err, doc) => {
+                  if(err) throw err;
+                  if(doc == null){
+                    toInsert = true;
+                    // console.log(toInsert);
                     }
-                  });
-                  if(toInsert){
-                    dbo.collection(conQ).insertOne(tweet, 
-                      (err, result) =>{
-                        if(err) throw err;
-                      });
                   }
-              db.close();
-          });
+                );
+              console.log(toInsert);
+              if(toInsert){
+                dbo.collection(conQ).insertOne(tweet,
+                  (err, result) =>{
+                    if(err) throw err;
+                    }
+                  );    
+                }  
+
+              db.close();            
+              }
+            );           
           }      
-       ) 
-    });
+        ) 
+      }
+    );
     
     // -----------------------      EoF         -----------------------  
 
@@ -266,7 +272,7 @@ app.post('/sendFormData', function(req, res){
         clearInterval(thread);
     }else{
       
-      var tweets2 = [];
+      tweets = [];
       T.get('search/tweets', searchPam, 
       (err, data) => {
         
@@ -302,6 +308,7 @@ app.post('/sendFormData', function(req, res){
 
             MongoClient.connect(url, {useUnifiedTopology: true},
               (err, db) => {
+                if(err) throw err;
                 var dbo = db.db("tweets");
  
                 dbo.collection(conQ).findOne({"tweet_id": tweet.tweet_id},
@@ -311,27 +318,19 @@ app.post('/sendFormData', function(req, res){
                           toInsert = true;                                    
                         }
                     }
-                  );                     
-                  if(toInsert){
-                    // console.log(tweet);
-                    // tweets2.push(tweet);
-                  }                  
-                  
-                  tweets = tweets2;
-                   
-                  db.close();                                  
+                  );               
+                db.close();                                 
                 }
-              );    
-                     
+              );                            
             }                  
-          );  
-           
+          );     
         }        
       );
-      console.log(tweets);
+      // console.log(tweets);
         
     if(tweets === undefined || tweets.length < 1 ){
-      console.log("[] skipping pass\n");
+      // console.log("[] skipping pass\n");
+      console.log();
     }else{  
       MongoClient.connect(url, {
         useUnifiedTopology: true,
@@ -342,14 +341,19 @@ app.post('/sendFormData', function(req, res){
           var dbo = db.db("tweets");
 
           // Show all tweets
+          /*
           dbo.collection(conQ).insertMany(tweets, 
-            
             (err, result) => {
               if(err) throw err;
               // console.log("error in repetition");
               db.close();
-            });
-          });
+              }
+            );
+            */
+           db.close(); 
+          }
+          
+        );
       }
       
 
@@ -376,13 +380,14 @@ app.get('/api/tweets',
     MongoClient.connect(url, {useUnifiedTopology: true},
       (err, db) => {
         if(err) throw err;
-          var dbo = db.db("tweets");
-          dbo.collection("bassnectar").find({}).toArray(
-            (err, result) =>{
-              if(err) throw err;
-              res.json(result); 
-            });
-
+        var dbo = db.db("tweets");
+        dbo.collection("bassnectar").find({}).toArray(
+          (err, result) =>{
+            if(err) throw err;
+            res.json(result); 
+            }
+          );
+        db.close();
         }
       );
 
