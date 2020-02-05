@@ -17,6 +17,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.0.0",
+    "react-spring": "^8.0.27",
     "twit": "^2.2.11",
     "twitter-node-client": "0.0.6",
     "uuid": "^3.3.3"
