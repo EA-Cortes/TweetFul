@@ -5,12 +5,19 @@ import Footer from './components/layout/Footer.js';
 import SearchForm from './components/SearchForm.js';
 import TwitterAPI from './TwitterAPI';
 import Tweet from './components/tweets/Tweet';
+import VisualTweets from './components/tweets/VisualTweets.js';
 
 const App =() =>{
+  
   return (
+
+    
     <div>
     <div className="Body">
+    
+    
       <Header/>
+      <VisualTweets/>  
       
         <div className="App">
          

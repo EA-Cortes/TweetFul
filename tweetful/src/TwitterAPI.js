@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 // import { createSecureContext } from 'tls';
 
 
 // const SearchForm = ()=> {
 const TwitterAPI = (props)=> {
-    const [loggedIn, setLoggedIn] = useState(false);
-    
+    const [loggedIn] = useState(false);
+    // const [loggedIn, setLoggedIn] = useState(false);
     // useEffect Hook replaces component did mount\
     /*
     useEffect(() => {
@@ -25,7 +25,7 @@ const TwitterAPI = (props)=> {
      });
      */
     return(
-        console.log(loggedIn),
+        
         loggedIn?
         <div className="container">
             <div>Logged in as:  
