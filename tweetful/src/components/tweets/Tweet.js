@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import './Tweet.css';
 class Tweet extends Component{
     constructor(){
@@ -28,7 +28,7 @@ class Tweet extends Component{
                 <ul style={style}>
                 {this.state.tweets.map(tweet => 
             
-                    <li key = {tweet.key}>
+                    <li key = {tweet._id}>
                         <div style = {tweetStyle} >
                             <div style={tweet.textStyle}>
                             
