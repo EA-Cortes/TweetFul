@@ -15,7 +15,7 @@ const App =() =>{
     <div>
     <div className="Body">
     
-      <VisualTweets/>  
+      
       <Header/>
       
       
@@ -44,6 +44,7 @@ const App =() =>{
             <TwitterAPI/>
           </div>  
         </div>
+         
         <Footer/>    
     </div>
     
