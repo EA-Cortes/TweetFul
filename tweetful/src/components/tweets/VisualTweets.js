@@ -1,40 +1,47 @@
 import { render } from 'react-dom'
-import React, { useState, useRef } from 'react'
-import clamp from 'lodash-es/clamp'
-import { useSpring, useSprings, useTrail, animated } from 'react-spring'
-import { useGesture } from 'react-use-gesture'
+import React, { useState, useEffect, useRef } from 'react'
+import { useTrail, animated } from 'react-spring'
+// import { useGesture } from 'react-use-gesture'
 import './VisualTweets.css';
+import './Tweet.js';
+import axios from 'axios';
 
-const VisualTweets = ()=> {
+const VisualTweets = (props)=> {
   const [on, toggle] = useState(false);
-  const items = [
-    'Tweet 1',
-    'Tweet 2',
-    'Tweet 3',
-    'Tweet 4',
-  ]
-  
+
+  // Function to get tweets from React Component
+  const getTweets= ()=>{
+    let newTweets = [
+      props.content[0].tweet,
+      props.content[1].tweet,
+      props.content[2].tweet,
+      props.content[3].tweet,
+      ];
+    return newTweets;
+    }
+
+  let items = getTweets();
+
   const trail = useTrail(items.length, {
     from: {color: '#000', opacity: 0},
     opacity: on ? 0 : 1,
     x: on ? 0: 20,
     height: on ? 80 : 0,
     config: {
-      tension: 80,
-      
+      tension: 60,      
     }
-  });
+    });
 
   return (
     <div className="container">
-      <button onClick={() => toggle(!on)}>Change</button>
+      <button onClick={e => toggle(!on)}>Get new tweets</button>
       <div className="tweetContainer" >
         {trail.map(({x, height, ...rest}, index) =>(
           <animated.div 
             key ={items[index]}
             className="tweets" 
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
-              {items[index]}
+              {items[index]} 
             </animated.div>
         ))}
       </div>
@@ -45,6 +52,8 @@ const VisualTweets = ()=> {
    
   )
 }
+
+
 
 const tweetStyle = {
   

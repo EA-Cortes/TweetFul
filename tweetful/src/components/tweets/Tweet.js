@@ -1,56 +1,86 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './Tweet.css';
-class Tweet extends Component{
-    constructor(){
+
+import { userTrail, animated } from 'react-spring';
+import './VisualTweets.css';
+import './VisualTweets.js'
+import VisualTweets from './VisualTweets.js';
+
+
+
+class Tweet extends Component {
+    constructor() {
         super();
         this.state = {
             tweets: []
         }
     }
 
-   
-    componentDidMount(){
-        setInterval(() => {
-            // get('/search/tweets');
-            
-            fetch('/api/tweets')
-            .then(res => res.json())
-            .then(tweets => this.setState({tweets},
-                ));    
-        }, 1000);
-    }
+    componentWillMount() {
+        // setInterval(() => {
+        // get('/search/tweets');
 
-    render(){
-        return(
-            
-            <div className="container" style={containerStyle}>
-                <h2>Searched tweets</h2> 
-                <ul style={style}>
-                {this.state.tweets.map(tweet => 
-            
-                    <li key = {tweet._id}>
-                        <div style = {tweetStyle} >
-                            <div style={tweet.textStyle}>
-                            
-                                <div style ={posterStyle}>
-                                    <img src={tweet.profilePicLink} style = {imgStyle}/>
-                                    &nbsp; {tweet.name}: @{tweet.screen_name} <br/>
+        fetch('/api/tweets')
+            .then(res => res.json())
+            .then(tweets => this.setState({ tweets },
+            ));
+        // }, 1000);
+    }
+    render() {
+        let content = [
+            {
+                tweet: "tweets[0].tweet",
+                key: 1
+            },
+            {
+                tweet: "tweet 20",
+                key: 2
+            },
+            {
+                tweet: "tweet 30",
+                key: 3
+            },
+            {
+                tweet: "tweet 40",
+                key: 4
+            },
+        ];                
+        // content[0].tweet = "new tweet";
+
+        return (
+            <div className="wrapper">
+                <div>
+                    <VisualTweets content={content} />
+                </div>
+                <div className="container" style={containerStyle}>
+                    <h2>Searched tweets</h2>
+                    <ul style={style}>
+                        {this.state.tweets.map(tweet =>
+                            <li key={tweet._id}>
+                                <div style={tweetStyle} >
+                                    <div style={tweet.textStyle}>
+
+                                        <div style={posterStyle}>
+                                            <img src={tweet.profilePicLink} style={imgStyle} />
+                                            &nbsp; {tweet.name}: @{tweet.screen_name} <br />
+                                        </div>
+                                        <div>
+                                            {tweet.tweet}
+                                            <img src={tweet.mediaLink} style={picStyle} />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        {tweet.ts}
+                                    </div>
                                 </div>
-                                <div>
-                                    {tweet.tweet } 
-                                    <img src={tweet.mediaLink} style ={picStyle}/>
-                                </div>
-                            </div>
-                            <div>
-                                {tweet.ts}
-                            </div>
-                        </div>
-                    
-                    </li>
-                )}
-            </ul>
-            </div>   
-        )};
+
+                            </li>
+                        )}
+                    </ul>
+                </div>
+            </div>
+        )
+    };
 }
 
 const style = {
