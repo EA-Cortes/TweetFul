@@ -12,7 +12,7 @@ class Tweet extends Component {
     constructor() {
         super();
         this.state = {
-            tweets: []
+            tweets: ["a", "b", "c", "d"]
         }
     }
 
@@ -27,32 +27,14 @@ class Tweet extends Component {
         // }, 1000);
     }
     render() {
-        let content = [
-            {
-                tweet: "tweets[0].tweet",
-                key: 1
-            },
-            {
-                tweet: "tweet 20",
-                key: 2
-            },
-            {
-                tweet: "tweet 30",
-                key: 3
-            },
-            {
-                tweet: "tweet 40",
-                key: 4
-            },
-        ];                
-        // content[0].tweet = "new tweet";
 
         return (
             <div className="wrapper">
                 <div>
-                    <VisualTweets content={content} />
+                    <VisualTweets content={this.state.tweets} />
                 </div>
-                <div className="container" style={containerStyle}>
+                
+                 <div className="container" style={containerStyle}>
                     <h2>Searched tweets</h2>
                     <ul style={style}>
                         {this.state.tweets.map(tweet =>
@@ -77,7 +59,7 @@ class Tweet extends Component {
                             </li>
                         )}
                     </ul>
-                </div>
+                </div> 
             </div>
         )
     };

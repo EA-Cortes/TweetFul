@@ -41,6 +41,7 @@ const VisualTweets = (props)=> {
             key ={items[index]}
             className="tweets" 
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
+              {/* Actual tweet objects will go below here :) */}
               {items[index]} 
             </animated.div>
         ))}
