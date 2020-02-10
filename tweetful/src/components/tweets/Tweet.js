@@ -12,7 +12,11 @@ class Tweet extends Component {
     constructor() {
         super();
         this.state = {
-            tweets: ["a", "b", "c", "d"]
+            tweets: ["1", "2", "3 ", "4",
+                     "5" ,"6", "7", "8",
+                     "9" ,"10", "11", "12",
+                     "13" ,"14", "15", "16",
+                    ]
         }
     }
 
@@ -31,9 +35,10 @@ class Tweet extends Component {
         return (
             <div className="wrapper">
                 <div>
-                    <VisualTweets content={this.state.tweets} />
+                    <VisualTweets content={this.state.tweets} startingIndex={0}/>
+                    
                 </div>
-                
+                {/*
                  <div className="container" style={containerStyle}>
                     <h2>Searched tweets</h2>
                     <ul style={style}>
@@ -60,6 +65,7 @@ class Tweet extends Component {
                         )}
                     </ul>
                 </div> 
+                */}
             </div>
         )
     };
