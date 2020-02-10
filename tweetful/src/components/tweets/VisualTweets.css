@@ -1,18 +1,40 @@
 .container{
   margin-bottom: 20px;
+  background-color: #0099ee;
 }
 
 .tweetContainer{
   display: flex;
+  height: "200px";
   
 }
 
 .tweets{
+  width: 150px;
+  height: 180px;
   flex: 1;
   border: 4px #aaaaaa solid;
   border-radius: 20px;
-  margin: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
   padding: 50px;
   background-color: white;
   color: black;
+}
+
+.buttonContainer{
+  display: flex;
+}
+
+.button{
+  flex: 1;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+.tweetPics{
+  max-width: 200px;
 }
