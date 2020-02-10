@@ -16,9 +16,12 @@ const App =() =>{
     <div className="Body">
     
       
-      <Header/>
+      {/* <Header/> */}
       
-      
+      <Tweet/>
+      <div>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      </div>
         <div className="App">
          
           <div className="leftBar">
