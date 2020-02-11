@@ -347,7 +347,7 @@ app.post('/sendFormData', function(req, res){
 app.get('/api/tweets', 
   (req, res) => {
     
-    MongoClient.connect(url, {useUnifiedTopology: false},
+    MongoClient.connect(url, {useUnifiedTopology: true},
       (err, db) => {
         if(err) throw err;
         var dbo = db.db("tweets");
@@ -357,7 +357,7 @@ app.get('/api/tweets',
             res.json(result); 
             }
           );
-        db.close();
+        // db.close();
         }
       );
 
