@@ -20,10 +20,12 @@ const VisualTweets = (props)=> {
       ];
     return newTweets;
     }
+  
+ 
 
   let items = getTweets(0);
-  let items2 = getTweets(4);
-  let items3 = getTweets(8);
+  let items2 = getTweets(16);
+  let items3 = getTweets(4);
 
   const trail = useTrail(items.length, {
     from: {color: '#000', opacity: 0},
@@ -66,14 +68,17 @@ const VisualTweets = (props)=> {
       <div className="tweetContainer" >
         {trail.map(({x, height, ...rest}, index) =>(
           <animated.div 
-            key ={items[index]}
+            
             className="tweets" 
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
               {/* Actual tweet objects will go below here :) */}
               
-              <div>
-                <img src={items[index].profilePicLink} />
+              <div key ={items[index]}>
+                <div className="userInfo ">
+                <img className="profilePic" src={items[index].profilePicLink} />
                 &nbsp; {items[index].name}: @{items[index].screen_name} <br />
+                </div>
+                
                 {items[index].tweet} 
                 <img className="tweetPics" src={items[index].mediaLink}/>
                 {items[index].ts}
@@ -91,14 +96,16 @@ const VisualTweets = (props)=> {
       <div className="tweetContainer" >
         {trail2.map(({x, height, ...rest}, index) =>(
           <animated.div 
-            key ={items2[index]}
+            
             className="tweets" 
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
               {/* Actual tweet objects will go below here :) */}
               
-              <div>
-                <img src={items2[index].profilePicLink} />
-                &nbsp; {items2[index].name}: @{items2[index].screen_name} <br />
+              <div key ={items2[index]}>
+                <div className="userInfo ">
+                  <img className="profilePic" src={items2[index].profilePicLink} />
+                  &nbsp; {items2[index].name}: @{items2[index].screen_name} <br />
+                </div>
                 {items2[index].tweet} 
                 <img className="tweetPics" src={items2[index].mediaLink}/>
                 {items2[index].ts}
@@ -115,14 +122,16 @@ const VisualTweets = (props)=> {
       <div className="tweetContainer" >
         {trail3.map(({x, height, ...rest}, index) =>(
           <animated.div 
-            key ={items3[index]}
+            
             className="tweets" 
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
               {/* Actual tweet objects will go below here :) */}
               
-              <div>
-                <img src={items3[index].profilePicLink} />
-                &nbsp; {items3[index].name}: @{items3[index].screen_name} <br />
+              <div key ={items3[index]}>
+                <div className="userInfo ">
+                  <img className="profilePic" src={items3[index].profilePicLink} />
+                  &nbsp; {items3[index].name}: @{items3[index].screen_name} <br />
+                </div>
                 {items3[index].tweet} 
                 <img className="tweetPics" src={items3[index].mediaLink}/>
               {items3[index].ts} 

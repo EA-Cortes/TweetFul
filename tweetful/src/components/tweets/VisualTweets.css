@@ -18,7 +18,7 @@
   margin-left: 5px;
   margin-right: 5px;
   margin-bottom: 10px;
-  padding: 50px;
+  
   background-color: white;
   color: black;
 }
@@ -37,4 +37,13 @@
 
 .tweetPics{
   max-width: 200px;
+}
+
+.profilePic{
+  border-radius: 50%;
+}
+
+.userInfo{
+  padding-top: 2px;
+  padding-bottom: 8px;
 }
