@@ -16,6 +16,7 @@ class Tweet extends Component {
                      "5" ,"6", "7", "8",
                      "9" ,"10", "11", "12",
                      "13" ,"14", "15", "16",
+                     "13" ,"14", "15", "16",
                     ]
         }
     }
@@ -27,7 +28,7 @@ class Tweet extends Component {
         fetch('/api/tweets')
             .then(res => res.json())
             .then(tweets => this.setState({ tweets },
-            ));
+            ));            
         // }, 1000);
     }
     render() {
@@ -35,7 +36,7 @@ class Tweet extends Component {
         return (
             <div className="wrapper">
                 <div>
-                    <VisualTweets content={this.state.tweets} startingIndex={0}/>
+                    <VisualTweets content={this.state.tweets}/>
                     
                 </div>
                 {/*
