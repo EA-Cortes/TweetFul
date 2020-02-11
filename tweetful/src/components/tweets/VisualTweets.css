@@ -5,7 +5,7 @@
 
 .tweetContainer{
   display: flex;
-  height: "200px";
+  height: 300px;
   
 }
 
@@ -13,13 +13,10 @@
   width: 150px;
   height: 180px;
   flex: 1;
-  border: 4px #aaaaaa solid;
-  border-radius: 20px;
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-bottom: 10px;
   
-  background-color: white;
+  
+  
+  
   color: black;
 }
 
@@ -36,7 +33,8 @@
 }
 
 .tweetPics{
-  max-width: 200px;
+  max-width: 400px;
+  max-height: 400px;
 }
 
 .profilePic{
@@ -46,4 +44,13 @@
 .userInfo{
   padding-top: 2px;
   padding-bottom: 8px;
+}
+
+.singleTweet{
+  background-color:white;
+  border: 4px #aaaaaa solid;
+  border-radius: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
 }

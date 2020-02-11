@@ -4,8 +4,9 @@ import { useTrail, animated } from 'react-spring'
 // import { useGesture } from 'react-use-gesture'
 import './VisualTweets.css';
 import './Tweet.js';
-import axios from 'axios';
 
+var moment = require('moment');
+moment().format("h:mm:ss a");
 const VisualTweets = (props)=> {
   const [on, toggle] = useState(false);
   const [on2, setState] = useState(false);
@@ -73,15 +74,17 @@ const VisualTweets = (props)=> {
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
               {/* Actual tweet objects will go below here :) */}
               
-              <div key ={items[index]}>
+              <div className="singleTweet" key ={items[index]}>
                 <div className="userInfo ">
                 <img className="profilePic" src={items[index].profilePicLink} />
                 &nbsp; {items[index].name}: @{items[index].screen_name} <br />
                 </div>
                 
-                {items[index].tweet} 
+                {items[index].tweet}
+                <br/>
+                {moment(items[index].ts).format("h:mm:ss a")}
                 <img className="tweetPics" src={items[index].mediaLink}/>
-                {items[index].ts}
+                
               </div>
               
               
@@ -101,14 +104,17 @@ const VisualTweets = (props)=> {
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
               {/* Actual tweet objects will go below here :) */}
               
-              <div key ={items2[index]}>
+              <div className="singleTweet" key ={items2[index]}>
                 <div className="userInfo ">
                   <img className="profilePic" src={items2[index].profilePicLink} />
                   &nbsp; {items2[index].name}: @{items2[index].screen_name} <br />
                 </div>
                 {items2[index].tweet} 
+                
+                <br/>
+                {moment(items2[index].ts).format("h:mm:ss a")}
                 <img className="tweetPics" src={items2[index].mediaLink}/>
-                {items2[index].ts}
+                
               </div>
               
               
@@ -127,14 +133,16 @@ const VisualTweets = (props)=> {
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
               {/* Actual tweet objects will go below here :) */}
               
-              <div key ={items3[index]}>
+              <div className="singleTweet" key ={items3[index]}>
                 <div className="userInfo ">
                   <img className="profilePic" src={items3[index].profilePicLink} />
                   &nbsp; {items3[index].name}: @{items3[index].screen_name} <br />
                 </div>
                 {items3[index].tweet} 
+                <br/>
+                {moment(items3[index].ts).format("h:mm:ss a")}
                 <img className="tweetPics" src={items3[index].mediaLink}/>
-              {items3[index].ts} 
+              
               </div>
               
               
