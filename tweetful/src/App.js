@@ -19,9 +19,7 @@ const App =() =>{
       {/* <Header/> */}
       
       <Tweet/>
-      <div>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      </div>
+      
         <div className="App">
          
           <div className="leftBar">
@@ -39,7 +37,7 @@ const App =() =>{
           </div>
 
           <div className="content">
-            <Tweet/>
+            placeholder
           </div>
 
           <div className="rightBar">
