@@ -110,6 +110,7 @@ app.get('/loggedUser', (req, res) => {
 // Init Tweet array  
 displayTweets = [];
 var tweets = [];
+var defaultSearch = "escape from tarkov";
 var searchPam = { q: 'mango since:2011-07-11', count: 20 }
 
 // Route that searches for tweets
@@ -144,9 +145,11 @@ T.get('search/tweets', searchPam,
 app.post('/sendFormData', function(req, res){
   // Pulling search keyword from user
   var searchFor = "'" + req.body.keyword + " since:2011-07-01'";
+  // defaultSearch = req.body.keyword;
   const searchQ = req.body.keyword;
     var orQ = searchQ;
     var conQ = searchQ.toLowerCase();
+    defaultSearch = conQ;
   // Connecting to the search/tweets route
   searchPam.q = searchFor;
   console.log(searchPam);
@@ -221,10 +224,10 @@ app.post('/sendFormData', function(req, res){
 
   
   var thread = setInterval(() => {
-    timeElapsed = timeElapsed + 6; 
+    timeElapsed = timeElapsed + 15; 
     // console.log("\nSearching for: " + JSON.stringify(searchPam));
     console.log("Refreshing tweets. Time elapsed: " + timeElapsed + "\ts");
-    if(timeElapsed > 10800){
+    if(timeElapsed > 120){
       console.log("3 hours deep, pausing search");
         clearInterval(thread);
     }else{
@@ -334,7 +337,7 @@ app.post('/sendFormData', function(req, res){
 
 
     }      
-  },6000);
+  },15000);
   
 // ********************************************** // 
   // end of response
@@ -351,13 +354,13 @@ app.get('/api/tweets',
       (err, db) => {
         if(err) throw err;
         var dbo = db.db("tweets");
-        dbo.collection("bassnectar").find({}).toArray(
+        dbo.collection(defaultSearch).find({}).toArray(
           (err, result) =>{
             if(err) throw err;
             res.json(result); 
+            db.close();
             }
-          );
-        // db.close();
+          );        
         }
       );
 
