@@ -1,24 +1,32 @@
 .container{
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   background-color: #0099ee;
 }
 
 .tweetContainer{
   display: flex;
-  height: 300px;
+  margin: 20px;
+  height: 350px;
+  
   
 }
 
-.tweets{
-  width: 150px;
+.textTweet{
+  display: flex;
+  /* margin-bottom: 20px; */
+  margin-left: 20px;
+  margin-right: 20px;
   height: 180px;
-  flex: 1;
+  border-radius: 6%;
   
-  
-  
-  
-  color: black;
 }
+
+
+.tweets{
+  flex: 1; 
+  border-radius: 6%;
+  
+ }
 
 .buttonContainer{
   display: flex;
@@ -33,6 +41,7 @@
 }
 
 .tweetPics{
+  border-radius: 6%;
   max-width: 400px;
   max-height: 400px;
 }
@@ -42,15 +51,26 @@
 }
 
 .userInfo{
-  padding-top: 2px;
+  /* padding-top: 2px; */
   padding-bottom: 8px;
 }
 
 .singleTweet{
   background-color:white;
   border: 4px #aaaaaa solid;
+  height: 150px;
+  border-radius: 6%;
+  margin-left: 5px;
+  margin-right: 5px;
+  
+}
+
+.pictureTweet{
+  background-color:white;
+  border: 4px #aaaaaa solid;
+  height: 350px;
   border-radius: 20px;
   margin-left: 5px;
   margin-right: 5px;
-  margin-bottom: 10px;
+  border-radius: 6%;
 }
