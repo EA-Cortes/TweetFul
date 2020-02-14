@@ -74,7 +74,7 @@ const VisualTweets = (props)=> {
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
               {/* Actual tweet objects will go below here :) */}
               
-              <div className="singleTweet" key ={items[index]}>
+              <div className="pictureTweet" key ={items[index]}>
                 <div className="userInfo ">
                 <img className="profilePic" src={items[index].profilePicLink} />
                 &nbsp; {items[index].name}: @{items[index].screen_name} <br />
@@ -82,7 +82,7 @@ const VisualTweets = (props)=> {
                 
                 {items[index].tweet}
                 <br/>
-                {moment(items[index].ts).format("h:mm:ss a")}
+                {moment(items[index].ts).format("ddd MM/DD/YYYY h:mm:ss a")}
                 <img className="tweetPics" src={items[index].mediaLink}/>
                 
               </div>
@@ -96,7 +96,7 @@ const VisualTweets = (props)=> {
         
       </div>
 
-      <div className="tweetContainer" >
+      <div className="textTweet" >
         {trail2.map(({x, height, ...rest}, index) =>(
           <animated.div 
             
@@ -112,7 +112,7 @@ const VisualTweets = (props)=> {
                 {items2[index].tweet} 
                 
                 <br/>
-                {moment(items2[index].ts).format("h:mm:ss a")}
+                {moment(items2[index].ts).format("ddd MM/DD/YYYY h:mm:ss a")}
                 <img className="tweetPics" src={items2[index].mediaLink}/>
                 
               </div>
@@ -125,7 +125,7 @@ const VisualTweets = (props)=> {
         
       </div>
 
-      <div className="tweetContainer" >
+      <div className="textTweet" >
         {trail3.map(({x, height, ...rest}, index) =>(
           <animated.div 
             
@@ -140,7 +140,7 @@ const VisualTweets = (props)=> {
                 </div>
                 {items3[index].tweet} 
                 <br/>
-                {moment(items3[index].ts).format("h:mm:ss a")}
+                {moment(items3[index].ts).format("ddd MM/DD/YYYY h:mm:ss a")}
                 <img className="tweetPics" src={items3[index].mediaLink}/>
               
               </div>
