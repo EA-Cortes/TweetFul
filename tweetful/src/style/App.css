@@ -20,12 +20,14 @@
 
 .listStyle {
   border-top: 5px solid white;
-  border-bottom: 5px solid white;
+  
   list-style: none;
+  
 }
 .listStyle li{
   padding: 5px;
-  text-align: left;
+  font-size: 20px;
+  text-align: center;
 }
 .content{
   flex: 3;
