@@ -20,7 +20,7 @@ const App = () =>{
           <div className="leftBar">
             
           <h1>SerTweet</h1>
-            <p> A fresh client for searching/viewing tweets </p>
+            <p> A fresh client for searching/viewing tweets </p>aaaaaa
            <nav>
             <ul className="listStyle">
             <Link to="/">
