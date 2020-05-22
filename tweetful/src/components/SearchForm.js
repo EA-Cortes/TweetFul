@@ -20,6 +20,7 @@ const SearchForm = ()=> {
         </div>
         :
         <div>
+        <h2>Search for:</h2>
             <form>
                 <input value={keyword}
                 onChange={e => setKeyword(e.target.value)} 
