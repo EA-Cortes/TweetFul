@@ -2,48 +2,60 @@ import React from 'react';
 import './style/App.css';
 import Header from './components/layout/Header.js';
 import Footer from './components/layout/Footer.js';
-import SearchForm from './components/SearchForm.js';
+import SearchForm from './components/SearchForm';
+import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import TwitterAPI from './TwitterAPI';
 import Tweet from './components/tweets/Tweet';
-import VisualTweets from './components/tweets/VisualTweets.js';
+// import VisualTweets from './components/tweets/VisualTweets.js';
 
-const App =() =>{
-  
-  return (
-
-    
+const App = () =>{    
+  return (    
     <div>
     <div className="Body">
     
       
-      {/* <Header/> */}
-      
-      <Tweet/>
-      
+      <Header/>
         <div className="App">
-         
+        <Router>
           <div className="leftBar">
-          <h1>SerTweet</h1>
-            <p> Ready to view your tweets in a new way? </p>
-            <h2>Goals </h2>
-            <ul className="listStyle">
-              <li>User Friendly application</li>
-              <li>Let you search tweets by hashtag/username</li>
-              <li>Display tweets in a user friendly way</li>
-              <li>Provide examples/tutorials</li>
-            </ul>
-            <h2>Example</h2>
-            <SearchForm/>
-          </div>
-
-          <div className="content">
-            placeholder
-          </div>
-
-          <div className="rightBar">
             
-            <TwitterAPI/>
-          </div>  
+          <h1>SerTweet</h1>
+            <p> A fresh client for searching/viewing tweets </p>
+           <nav>
+            <ul className="listStyle">
+            <Link to="/">
+              <li>
+                Account
+              </li>
+              </Link>
+              <Link to="/search"><li>
+                Search
+              </li></Link>
+              <Link to="/viewTweets">
+              <li>
+                Display
+              </li>
+              </Link>
+              
+            </ul>
+            </nav>
+            </div>
+            
+            <div className="content">
+            <Switch>                              
+              <Route path="/search" component={SearchForm} />
+              <Route path="viewTweets" component={PH} />
+              <Route exact path="/" component={""} />                        
+            </Switch>
+           </div>
+            
+         
+            
+          
+
+          </Router>
+
+         
         </div>
          
         <Footer/>    
@@ -51,6 +63,11 @@ const App =() =>{
     
     </div>
   );
+  
 }
 
 export default App;
+
+function PH(){
+  return <Tweet/>;
+}
