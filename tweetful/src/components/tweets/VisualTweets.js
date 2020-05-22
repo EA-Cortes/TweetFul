@@ -24,9 +24,9 @@ const VisualTweets = (props)=> {
   
  
 
-  let items = getTweets(0);
-  let items2 = getTweets(4);
-  let items3 = getTweets(8);
+  let items = getTweets(6);
+  let items2 = getTweets(0);
+  let items3 = getTweets(12);
 
   const trail = useTrail(items.length, {
     from: {color: '#000', opacity: 0},
