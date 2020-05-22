@@ -110,14 +110,15 @@ app.get('/loggedUser', (req, res) => {
 // Init Tweet array  
 displayTweets = [];
 var tweets = [];
-var defaultSearch = "escape from tarkov";
-var searchPam = { q: 'mango since:2011-07-11', count: 20 }
+var defaultSearch = "quarantine";
+var searchPam = { q: 'mango since:2011-07-11', count: 12 }
 
 // Route that searches for tweets
 T.get('search/tweets', searchPam, 
 (err, data) => {
 // To get tweet metadata
-// console.log(data.statuses)
+  console.log(data)
+ /* 
   data.statuses.forEach(
     (element, index)=>{
     // Temp save each tweet  
@@ -136,6 +137,7 @@ T.get('search/tweets', searchPam,
       tweets.push(tweet);
     }      
   )
+  */
 
 });
 
