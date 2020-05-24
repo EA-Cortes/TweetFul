@@ -18,7 +18,8 @@ const SearchPage = ()=> {
         );
 
         const dbs = await data.json();
-        console.log(dbs);
+        // console.log(dbs);
+        setDBs(dbs);
     }
 
     return(
@@ -27,7 +28,10 @@ const SearchPage = ()=> {
                 <SearchForm/>
             </div>
             <div className="searchPageHalf">
-                Recent Searches will show here
+                <h1>Recent Searches:</h1>
+                {DBs.map(db => (
+                    <p key={db.name}>{db.name}</p>
+                ))}
             </div>
             
         </div>
@@ -36,9 +40,9 @@ const SearchPage = ()=> {
     function getDBs(){
         axios.get(`/getDBs`)
         .then(res => {
-          console.log("response in server");
+        //   console.log("response in server");
         //   console.log(res);
-        //   console.log(res.data);
+          console.log(res.data);
         })
     }
 }
