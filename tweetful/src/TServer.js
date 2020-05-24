@@ -361,13 +361,37 @@ app.get('/api/tweets',
             if(err) throw err;
             res.json(result); 
             db.close();
+          }
+        );        
+      }
+    );
+
+    // res.json(tweets);
+  }
+);
+
+// Middleware that returns the databases
+app.get('/getDBs',
+  (req, res) =>{
+    MongoClient.connect(url, {useUnifiedTopology: true},
+      (err, db) => {
+        if(err) throw err;
+        // console.log("Connected to DB, trying to fetch DB names");
+        // do stuff 
+        var dbo = db.db("tweets");
+        dbo.listCollections().toArray(
+          (err, collections)=>{
+            if(err) throw err;
+            // console.log(collections);
+            res.json(collections);
             }
-          );        
+          );
+        db.close();
+        // console.log("Fetched DBs. Closing now.")
         }
       );
-
-  // res.json(tweets);
-});
+  }
+);
 
 const PORT = 5000; // process.env.PORT || 5000;
 app.listen(PORT, () => console.log('Server running on port: ' + PORT));
