@@ -1,0 +1,8 @@
+.searchPageWrapper{
+    display: flex;
+}
+
+.searchPageHalf{
+    margin: 10px;
+    flex: 1;
+}
