@@ -1,6 +1,6 @@
 .Body {
   text-align: center;
-  height: 98vh;
+  height: 100vh;
   color: white;
   background-color: #0099ee;
 }
@@ -8,6 +8,7 @@
 .App {
   display: flex;
   background-color: #0099ee;
+  height: 96vh;
 }
 
 .leftBar {
