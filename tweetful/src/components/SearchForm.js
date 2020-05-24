@@ -28,7 +28,7 @@ const SearchForm = ()=> {
                 type="text"name="isOn">
                 </input>
                 
-                <button type="submit" onClick={e =>foo()} onClick={e =>sendData({keyword})}>Submit</button>
+                <button type="submit" onClick={e =>foo()} >Submit</button>
             </form>                        
         </div>    
         
@@ -40,7 +40,7 @@ const SearchForm = ()=> {
         if(isOn){
             setKeyword("");
         }
-        setIsOn(true);
+        setIsOn(!isOn);
     }
 
     function sendData(searchFor){
