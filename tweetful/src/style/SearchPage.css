@@ -1,8 +1,12 @@
 .searchPageWrapper{
+    font-size: 30px;
     display: flex;
 }
 
 .searchPageHalf{
     margin: 10px;
+    font-size: 18px;
     flex: 1;
+    border: 1vh white solid;
+    border-radius: 25px;
 }

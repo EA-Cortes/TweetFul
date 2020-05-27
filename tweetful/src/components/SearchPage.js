@@ -23,17 +23,21 @@ const SearchPage = ()=> {
     }
 
     return(
-        <div className="searchPageWrapper">
-            <div className="searchPageHalf">
-                <SearchForm/>
+        <div>
+            <h1 >Search Page</h1>        
+            <div className="searchPageWrapper">
+                
+                <div className="searchPageHalf">
+                    <SearchForm/>
+                </div>
+                <div className="searchPageHalf">
+                    <h1>Recent Searches:</h1>
+                    {DBs.map(db => (
+                        <p key={db.name}>{db.name}</p>
+                    ))}
+                </div>
+                
             </div>
-            <div className="searchPageHalf">
-                <h1>Recent Searches:</h1>
-                {DBs.map(db => (
-                    <p key={db.name}>{db.name}</p>
-                ))}
-            </div>
-            
         </div>
     );
 
