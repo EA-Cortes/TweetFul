@@ -121,13 +121,24 @@ var tweets = [];
 var defaultSearch = "quarantine";
 var searchPam = { q: 'mango since:2011-07-11', count: 12 }
 
+// ******************************* Register route *******************************
 app.post('/register', 
   (req, res, next)=>{
-    console.log(req.body.username);
-    console.log(req.body.email);
-    console.log(req.body.password);
+    MongoClient.connect(url, {useUnifiedTopology: true},
+      (err, db) => {
+        if (err) throw err
+        // insert db query here
+        console.log("Connected to server. About to register user")
+        var dbo = db.db("admin");
+        dbo.createUser({
+          user: req.body.username,
+          pwd: req.body.password,
+        });
 
-    res.render('index', {title: 'Registration Complete'});
+        db.close();
+        }
+      );
+    // res.render('index', {title: 'Registration Complete'});
   }
 );
 
