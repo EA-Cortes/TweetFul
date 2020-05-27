@@ -6,6 +6,7 @@ import SearchPage from './components/SearchPage'
 import DataAnalytics from './components/DataAnalytics'
 import Account from './components/Account'
 import Tweet from './components/tweets/Tweet';
+import LandingPage from './components/LandingPage.js'
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import TwitterAPI from './TwitterAPI';
 import { useSprings } from 'react-spring';
@@ -28,7 +29,7 @@ const App = () =>{
           <div className="leftBar">
             
           <h1>SerTweet</h1>
-            <p> A fresh client for searching/viewing tweets </p>
+            <p> A fresh search of tweets </p>
            <nav>
             <ul className="listStyle">
             <Link to="/">
@@ -75,7 +76,7 @@ const App = () =>{
           
 
           </Router>
-          true
+          
         </div>
          
         <Footer/>    
@@ -84,8 +85,8 @@ const App = () =>{
     </div>
     :
     <div className="Body">
-    <Header/>
-      <h1>{"Not logged in"}</h1>
+      <LandingPage/>
+      <Footer/>    
     </div>
   );
   
