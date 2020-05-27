@@ -102,9 +102,9 @@ const LogIn = ()=> {
     function register(){
         axios.post(`/register`, {username, email, password, confirmPassword})
         .then(res => {
-          console.log("response in server");
+        //   console.log("response in server");
           
-          console.log(res);
+        //   console.log(res);
         //   console.log(res.data);
         })
     }
