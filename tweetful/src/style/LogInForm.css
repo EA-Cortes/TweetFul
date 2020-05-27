@@ -1,0 +1,21 @@
+.logInFormWrapper{
+    font-size: 3vh;
+    align-content: center;
+    background-color: #807d75;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.logInForm{
+    
+    /* #a3a2a0 */
+    border: 4px white solid;
+    border-radius: 20px;
+    background-color: #a3a2a0;
+    padding: 20px;
+    margin: 20px;
+    align-content: center;
+    
+}
+
