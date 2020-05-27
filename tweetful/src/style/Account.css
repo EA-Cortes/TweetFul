@@ -1,0 +1,13 @@
+.accountWrapper{
+    color: white;
+    font-size: 30px;
+    display: flex;
+}
+
+.accountLeft{
+    flex:1;
+    margin: 5vh;
+    height: 70vh;
+    border: 1vh white solid;
+    border-radius: 20px;
+}
