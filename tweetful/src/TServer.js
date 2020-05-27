@@ -17,6 +17,11 @@ const Strategy = require('passport-twitter').Strategy;
 // https://github.com/ttezel/twit
 const Twit = require('twit');
 
+// Password encryption
+
+const saltRounds = 10;
+const ptPassword = 'bluelazernzxt';
+const optPassword = 'not_bacon';
 
 // Init Server
 const app = express();
@@ -44,6 +49,9 @@ MongoClient.connect(url, {useUnifiedTopology: true},
     }
   );
 */
+
+
+
 const T = new Twit({
   consumer_key: API_Keys.consumerKey,
   consumer_secret: API_Keys.consumerSecret,
@@ -113,7 +121,17 @@ var tweets = [];
 var defaultSearch = "quarantine";
 var searchPam = { q: 'mango since:2011-07-11', count: 12 }
 
-// Route that searches for tweets
+app.post('/register', 
+  (req, res, next)=>{
+    console.log(req.body.username);
+    console.log(req.body.email);
+    console.log(req.body.password);
+
+    res.render('index', {title: 'Registration Complete'});
+  }
+);
+
+// ****************************** Route that searches for tweets ******************************
 T.get('search/tweets', searchPam, 
 (err, data) => {
 // To get tweet metadata
