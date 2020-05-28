@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const LogIn = ()=> {
     const [name, setName] = useState("");
-    const [newUser, setNewUser] = useState(true);
+    const [newUser, setNewUser] = useState(false);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -65,7 +65,7 @@ const LogIn = ()=> {
                             type="text">
                         </input>                        
                 </div>
-                <div class="logInForm">                    
+                <div className="logInForm">                    
                     <input value={password}
                         onChange={e => setPassword(e.target.value)} 
                         placeholder="Password"
@@ -95,7 +95,7 @@ const LogIn = ()=> {
     }
 
     function logInUser(){
-
+        axios.post('/logIn', {username, password});
     }
 
 
