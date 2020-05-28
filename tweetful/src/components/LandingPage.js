@@ -15,7 +15,7 @@ const LandingPage = ()=> {
 
                     </div>
                     <div className="content">
-                        <h1>{"Ser Tweet demo"}</h1>
+                        <h1>{"Ser Tweet landing page demo"}</h1>
                     </div>
                 </div>
             </div>
