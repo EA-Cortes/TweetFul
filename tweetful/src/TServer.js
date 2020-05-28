@@ -129,10 +129,11 @@ app.post('/register',
         if (err) throw err
         // insert db query here
         console.log("Connected to server. About to register user")
-        var dbo = db.db("admin");
-        dbo.createUser({
+        var dbo = db.db("users");
+        dbo.collection("users").createUser({
           user: req.body.username,
           pwd: req.body.password,
+          roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
         });
 
         db.close();
@@ -141,6 +142,23 @@ app.post('/register',
     // res.render('index', {title: 'Registration Complete'});
   }
 );
+
+// ******************************* Log In route *******************************
+app.post('/logIn',
+  (req, res, next)=>{
+  MongoClient.connect(url, {useUnifiedTopology: true},
+    (err, db) => {
+      if (err) throw err
+      // insert db query here
+      console.log("Authenticating " + req.body.username + " in DB.")
+      
+      // db.authenticate(req.body.username, req.body.password)
+      db.close();
+      }
+    );
+  }
+);
+
 
 // ****************************** Route that searches for tweets ******************************
 T.get('search/tweets', searchPam, 
