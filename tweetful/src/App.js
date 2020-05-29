@@ -18,7 +18,7 @@ const App = () =>{
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(()=>{
-    // setLoggedIn(true);
+    setLoggedIn(true);
   });
   return (    
     loggedIn?
@@ -69,16 +69,9 @@ const App = () =>{
               <Route path="/account" component={Account}/>
               <Route exact path="/" component={""} />                        
             </Switch>
-           </div>
-            
-         
-            
-          
-
-          </Router>
-          
-        </div>
-         
+           </div>                                 
+          </Router>          
+        </div>         
         <Footer/>    
     </div>
     
