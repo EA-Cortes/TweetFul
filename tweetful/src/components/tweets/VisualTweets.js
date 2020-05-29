@@ -7,12 +7,18 @@ import './Tweet.js';
 
 var moment = require('moment');
 moment().format("h:mm:ss a");
+
+
 const VisualTweets = (props)=> {
   const [on, toggle] = useState(false);
   const [on2, setState] = useState(false);
   const [on3, setThree] = useState(false);
+
+  
   // Function to get tweets from React Component
   const getTweets= (startingIndex)=>{
+
+
     let newTweets = [
       props.content[startingIndex],
       props.content[startingIndex+1],
@@ -57,14 +63,15 @@ const VisualTweets = (props)=> {
         tension: 60,      
       }
       });
-
+    // const trail4 = newTrail(items3.length, on3);
+    // newTrail("Kappassss");
   return (
     <div className="container">
-      <div className="buttonContainer"> 
-        <button className="button" onClick={e => toggle((!on))}>Get new tweets</button> 
-        <button className="button" onClick={e => setState(!on2)}>Get new tweets</button> 
-        <button className="button" onClick={e => setThree(!on3)}>Get new tweets</button>
-      </div>
+      {/* <div className="buttonContainer">  */}
+        {/* <button className="button" onClick={e => toggle((!on))}>Get new tweets</button>  */}
+        {/* <button className="button" onClick={e => setState(!on2)}>Get new tweets</button>  */}
+        {/* <button className="button" onClick={e => setThree(!on3)}>Get new tweets</button> */}
+      {/* </div>  */}
       
       <div className="tweetContainer" >
         {trail.map(({x, height, ...rest}, index) =>(
@@ -74,7 +81,7 @@ const VisualTweets = (props)=> {
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
               {/* Actual tweet objects will go below here :) */}
               
-              <div className="pictureTweet" key ={items[index]}>
+              <div className="singleTweet" key ={items[index]}>
                 <div className="userInfo ">
                 <img className="profilePic" src={items[index].profilePicLink} />
                 &nbsp; {items[index].name}: @{items[index].screen_name} <br />
@@ -159,6 +166,10 @@ const VisualTweets = (props)=> {
     </div>
    
   )
+
+  function newTrail(itemLength, on){
+    console.log(itemLength);
+  }
 }
 
 

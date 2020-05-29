@@ -25,6 +25,9 @@
 .tweets{
   flex: 1; 
   border-radius: 6%;
+  background-color:white;
+  border: 4px #aaaaaa solid;
+  height: 30vh;
   
  }
 
@@ -56,9 +59,7 @@
 }
 
 .singleTweet{
-  background-color:white;
-  border: 4px #aaaaaa solid;
-  height: 150px;
+  height: 30vh;
   border-radius: 6%;
   margin-left: 5px;
   margin-right: 5px;
@@ -67,7 +68,7 @@
 
 .pictureTweet{
   background-color:white;
-  border: 4px #aaaaaa solid;
+  /* border: 4px #aaaaaa solid; */
   height: 350px;
   border-radius: 20px;
   margin-left: 5px;
