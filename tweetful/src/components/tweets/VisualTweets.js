@@ -10,15 +10,13 @@ moment().format("h:mm:ss a");
 
 
 const VisualTweets = (props)=> {
-  const [on, toggle] = useState(false);
-  const [on2, setState] = useState(false);
-  const [on3, setThree] = useState(false);
+  const [on, setOn] = useState(false);
+  const [on2, setOn2] = useState(true);
+  const [on3, setOn3] = useState(true);
 
   
   // Function to get tweets from React Component
   const getTweets= (startingIndex)=>{
-
-
     let newTweets = [
       props.content[startingIndex],
       props.content[startingIndex+1],
@@ -27,8 +25,6 @@ const VisualTweets = (props)=> {
       ];
     return newTweets;
     }
-  
- 
 
   let items = getTweets(6);
   let items2 = getTweets(0);
@@ -40,7 +36,7 @@ const VisualTweets = (props)=> {
     x: on ? 0: 20,
     height: on ? 80 : 0,
     config: {
-      tension: 60,      
+      tension: 80,      
     }
     });
 
@@ -60,19 +56,22 @@ const VisualTweets = (props)=> {
       x: on3 ? 0: 20,
       height: on3 ? 80 : 0,
       config: {
-        tension: 60,      
+        tension: 80,      
       }
       });
-    // const trail4 = newTrail(items3.length, on3);
-    // newTrail("Kappassss");
+    
+    useEffect(() =>{
+      const timeout = setTimeout(()=>{
+        setOn(!on);          
+        setOn2(!on2);          
+        const timeout2 = setTimeout(()=>{
+          setOn3(!on3); 
+        }, 1000);
+      }, 4000);                
+    });
+
   return (
-    <div className="container">
-      {/* <div className="buttonContainer">  */}
-        {/* <button className="button" onClick={e => toggle((!on))}>Get new tweets</button>  */}
-        {/* <button className="button" onClick={e => setState(!on2)}>Get new tweets</button>  */}
-        {/* <button className="button" onClick={e => setThree(!on3)}>Get new tweets</button> */}
-      {/* </div>  */}
-      
+    <div className="container">            
       <div className="tweetContainer" >
         {trail.map(({x, height, ...rest}, index) =>(
           <animated.div 
@@ -81,7 +80,7 @@ const VisualTweets = (props)=> {
             style={{ ...rest, transform: x.interpolate(x => `translate3d(0,${x}px,0)`) }}> 
               {/* Actual tweet objects will go below here :) */}
               
-              <div className="singleTweet" key ={items[index]}>
+              <div className="pictureTweet" key ={items[index]}>
                 <div className="userInfo ">
                 <img className="profilePic" src={items[index].profilePicLink} />
                 &nbsp; {items[index].name}: @{items[index].screen_name} <br />
@@ -90,14 +89,8 @@ const VisualTweets = (props)=> {
                 {items[index].tweet}
                 <br/>
                 {moment(items[index].ts).format("ddd MM/DD/YYYY h:mm:ss a")}
-                <img className="tweetPics" src={items[index].mediaLink}/>
-                
-              </div>
-              
-              
-
-
-
+                <img className="tweetPics" src={items[index].mediaLink}/>                
+              </div>                  
             </animated.div>
         ))}
         
@@ -122,11 +115,7 @@ const VisualTweets = (props)=> {
                 {moment(items2[index].ts).format("ddd MM/DD/YYYY h:mm:ss a")}
                 <img className="tweetPics" src={items2[index].mediaLink}/>
                 
-              </div>
-              
-              
-
-
+              </div>              
             </animated.div>
         ))}
         
@@ -172,11 +161,8 @@ const VisualTweets = (props)=> {
   }
 }
 
-
-
 const tweetStyle = {
   
 }
-
 
 export default VisualTweets;
